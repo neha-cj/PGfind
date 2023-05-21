@@ -1,27 +1,68 @@
-import React from 'react';
-import "../login/login.css";
-import google from "../../images/google.png"
+import React from "react";
+import "./login.css";
+import google from "../../images/google.png";
+import logo from "../../images/mypg-logo.png";
 
-export default function login(){
-    return(
-        <div className="login">
-            <div className="login-cont">
-                <div className="login-head">
-                    <h1>Welcome to PgFInd</h1>
-                    <p>
-                        Find your perfect PG in seconds with PGfind the ultimate 
-                        time-savinf app for locsting nearby Pg!
-                    </p>
-                </div>
-                <div className="login-button">
-                    <button className="login-button">
-                        <img alt="" src={google}></img>
-                        <p>Sign Up with google</p>
-                    </button>
-                    
-                </div>
-            </div>
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {app} from "../../firebase";
+import { useNavigate } from "react-router-dom";
+
+export default function Login() {
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth(app);
+  const navigate = useNavigate();
+  async function handleSignIn() {
+
+    signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    console.log(user)
+    navigate("/dashboard")
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+
+
+
+  }
+  
+
+    return (
+      <div className="login">
+        <div className="login-cont">
+          <div className="login-head">
+            <img src={logo}></img>
+            <h1>Welcome To MyPG</h1>
+            <p>
+              Find your perfect PG in seconds with PGFind <br></br>The ultimate
+              time-saving app for locating nearby PG!
+            </p>
+           
+          </div>
+          <div className="login-button">
+            <button
+            onClick={handleSignIn} className="login-btn">
+              <img
+                alt=""
+                src={google}
+              ></img>
+              <p> Sign in with Google</p>
+            </button>
+          </div>
         </div>
-
-    )
-}
+      </div>
+    );
+  } 
