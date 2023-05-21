@@ -26,3 +26,23 @@
     display: flex;
     justify-content:center;
 }
+.login-button button{
+    background: rgb(207, 170, 170);
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    width: 80%;
+    
+    border-radius: 20px;
+    border: none;
+    justify-content: center;
+}
+.login-button button img{
+    width: 30px;
+    height: 30px;
+}
+.login-button p{
+    font-size: 20px;
+}
