@@ -10,7 +10,8 @@ function App() {
     <BrowserRouter>
        <Routes>
           <Route path="/" element={<Hero/>} />
-          <Route path="/" element={<login.jsx />} />
+          <Route path="/login" element={<login/>} />
+          <Route path="/dashboard" element={<Dashboard/>} />
        </Routes>
     </BrowserRouter>
   )
